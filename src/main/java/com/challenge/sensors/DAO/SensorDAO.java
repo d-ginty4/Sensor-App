@@ -4,14 +4,21 @@ import java.sql.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.servlet.http.HttpSessionAttributeListener;
 
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.client.HttpServerErrorException;
 
 import com.challenge.sensors.entity.Sensor;
 import com.challenge.sensors.entity.SensorData;
+import com.challenge.sensors.rest.ErrorResponse;
+import com.challenge.sensors.rest.SensorNotFoundException;
 
 @Repository
 public class SensorDAO {
@@ -54,6 +61,10 @@ public class SensorDAO {
 		
 		Sensor theSensor = currentSession.get(Sensor.class, idInteger);
 		
+		if(theSensor == null) {
+			throw new SensorNotFoundException("Sensor id " + idInteger +" not found");
+		}
+		
 		extractData(data, theSensor);
 		
 		return theSensor;
@@ -79,5 +90,17 @@ public class SensorDAO {
 			
 			sensor.setAvgHumidity(avgHumidity.floatValue());
 		}
+	}
+	
+	@ExceptionHandler
+	public ResponseEntity<ErrorResponse> handleException(SensorNotFoundException exc){
+		
+		ErrorResponse error = new ErrorResponse();
+		
+		error.setStatus(HttpStatus.NOT_FOUND.value());
+		error.setMessage(exc.getMessage());
+		error.setTimeSramp(System.currentTimeMillis());
+		
+		return new ResponseEntity<ErrorResponse>(error, HttpStatus.NOT_FOUND);
 	}
 }
