@@ -7,10 +7,10 @@
 4. Finally enter 'java -jar sensors-0.0.1-SNAPSHOT.jar' to start the application
 
 ## Project Details
-This application is built using Spring boot which by default uses hibernate to interact with the database
+This application is built using Spring boot which by default uses hibernate to interact with the database. 
 
 ### Database structure
-![Database Structure](Images\DBStructure.png)
+![Database Structure](Images/DBStructure.png)
 
 ### Main classes
 1. **Sensor.java**<br>
