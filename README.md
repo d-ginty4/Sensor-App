@@ -7,10 +7,10 @@
 4. Finally enter 'java -jar sensors-0.0.1-SNAPSHOT.jar' to start the application
 
 ## Project Details
-This application is built using Spring boot which by default uses hibernate to interact with the database
+This application is built using Spring boot which by default uses hibernate to interact with the database. This application does can not query for sensor data by date.
 
 ### Database structure
-![Database Structure](Images\DBStructure.png)
+![Database Structure](Images/DBStructure.png)
 
 ### Main classes
 1. **Sensor.java**<br>
@@ -28,16 +28,16 @@ Contains the rest api's for the application and uses the SensorDAO class to inte
 ### Rest API's
 1. **/sensor** <br>
 POST request used to create a new sensor. <br>
-![Example sensor request](Images\sensor.png)
+![Example sensor request](Images/sensor.png)
 
 2. **/sensorData**<br>
 POST Request used to create new data for a sensor. The id for thr sensor needs to be specified.<br>
-![Example sensorData request](Images\sensorData.png)
+![Example sensorData request](Images/sensorData.png)
 
 3. **/allData**<br>
 GET Request used to request the average temperature and/or humidity for all sensors. Takes the metrics you wish to see as a parameter.<br>
-![Example allData request](Images\allData.png)
+![Example allData request](Images/allData.png)
 
 4. **/data**<br>
 GET Request used to request the average temperature and/or humidity for some sensors. Takes the ids of the sensors and the metrics you wish to see as a parameter.<br>
-![Example data request](Images\data.png)
+![Example data request](Images/data.png)
